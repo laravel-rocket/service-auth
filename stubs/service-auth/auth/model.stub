@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Models;
+
+/**
+ * App\Models\%%MODEL%%ServiceAuthentication.
+ *
+ * @method \App\Presenters\%%MODEL%%Presenter present()
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $name
+ * @property string $email
+ * @property string $service
+ * @property int $service_id
+ * @property string $image_url
+ * @property string $service_token
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\%%MODEL%% $user
+ *
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication where%%MODEL%%Id($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereService($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereServiceId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereImageUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\%%MODEL%%ServiceAuthentication whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+class %%MODEL%%ServiceAuthentication extends ServiceAuthenticationBase
+{
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = '%%model%%_service_authentications';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'name',
+        'email',
+        'service',
+        'service_id',
+        'service_token',
+        'image_url',
+    ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [];
+
+    protected $dates = [];
+
+    protected $presenter = \App\Presenters\%%MODEL%%Presenter::class;
+
+    // Relations
+    public function user()
+    {
+        return $this->belongsTo('App\Models\%%MODEL%%', 'id', '%%model%%_id');
+    }
+
+    // Utility Functions
+}

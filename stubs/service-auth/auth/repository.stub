@@ -2,21 +2,17 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Repositories\ServiceAuthenticationRepositoryInterface;
-use App\Models\ServiceAuthenticationBase;
+use App\Repositories\%%MODEL%%ServiceAuthenticationRepositoryInterface;
+use LaravelRocket\ServiceAuthentication\Repositories\Eloquent\ServiceAuthenticationRepository;
+use App\Models\%%MODEL%%ServiceAuthentication;
 
-class ServiceAuthenticationRepository extends SingleKeyModelRepository implements ServiceAuthenticationRepositoryInterface
+class %%MODEL%%ServiceAuthenticationRepository extends ServiceAuthenticationRepository implements %%MODEL%%ServiceAuthenticationRepositoryInterface
 {
-    public $authModelColumn = '';
-
-    public function getAuthModelColumn()
-    {
-        return $this->authModelColumn;
-    }
+    public $authModelColumn = '%%model%%_id';
 
     public function getBlankModel()
     {
-        return new ServiceAuthenticationBase();
+        return new %%MODEL%%ServiceAuthentication();
     }
 
     public function rules()
@@ -29,19 +25,5 @@ class ServiceAuthenticationRepository extends SingleKeyModelRepository implement
     {
         return [
         ];
-    }
-
-    public function findByServiceAndId($service, $id)
-    {
-        $class = $this->getModelClassName();
-
-        return $class::whereService($service)->whereServiceId($id)->first();
-    }
-
-    public function findByServiceAndAuthModelId($service, $authModelId)
-    {
-        $class = $this->getModelClassName();
-
-        return $class::whereService($service)->where("$this->authModelColumn", $authModelId)->first();
     }
 }

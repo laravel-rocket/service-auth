@@ -1,11 +1,19 @@
 <?php
 namespace LaravelRocket\ServiceAuthentication\Generators;
 
+use Symfony\Component\Console\Exception\InvalidArgumentException;
+use function ICanBoogie\singularize;
+
 class AuthGenerator extends Generator
 {
     public function generate($name, $overwrite = false, $baseDirectory = null)
     {
         $this->generateMigration($name);
+
+        $this->generateModel($name);
+        $this->generatePresenter($name);
+        $this->generateModelUnitTest($name);
+        $this->generateModelFactory($name);
 
         $this->generateService($name);
         $this->generateServiceInterface($name);
@@ -54,6 +62,76 @@ class AuthGenerator extends Generator
         return $basePath.'/'.date('Y_m_d_His').'_create_'.$name.'_table.php';
     }
 
+    // MODEL
+
+    protected function generateModel($name)
+    {
+        $modelName = $this->getModelName($name);
+        $className = $this->getModelClass($modelName);
+        $classPath = $this->convertClassToPath($className);
+
+        $stubFilePath = $this->getStubPath('/service-auth/auth/model.stub');
+
+        return $this->generateFile($modelName, $classPath, $stubFilePath, [
+        ]);
+    }
+
+    protected function generatePresenter($name)
+    {
+        $modelName = $this->getModelName($name);
+
+        $className    = '\\App\\Presenters\\'.$modelName.'Presenter';
+        $classPath    = $this->convertClassToPath($className);
+        $stubFilePath = $this->getStubPath('/model/presenter.stub');
+
+        return $this->generateFile($modelName, $classPath, $stubFilePath, [
+            'MULTILINGUAL_COLUMNS' => '',
+            'IMAGE_COLUMNS'        => '',
+        ]);
+    }
+
+    protected function generateModelUnitTest($modelName)
+    {
+        $classPath    = base_path('/tests/Models/'.$modelName.'Test.php');
+        $stubFilePath = $this->getStubPath('/model/model_unittest.stub');
+
+        return $this->generateFile($modelName, $classPath, $stubFilePath);
+    }
+
+    protected function getModelClass($name)
+    {
+        $modelName = $this->getModelName($name);
+
+        return '\\App\\Models\\'.$modelName;
+    }
+
+    protected function generateModelFactory($name)
+    {
+        $modelName = $this->getModelName($name);
+        $className = $this->getModelClass($modelName);
+
+        $factoryPath = base_path('/database/factories/ModelFactory.php');
+        $key         = '/* NEW MODEL FACTORY */';
+
+        $data = '$factory->define('.$className.'::class, function (Faker\Generator $faker) {'.PHP_EOL
+                .'    return ['.PHP_EOL
+                .'        \'user_id\'       => 0,'.PHP_EOL
+                .'        \'name\'          => $faker->name,'.PHP_EOL
+                .'        \'email\'         => $faker->email,'.PHP_EOL
+                .'        \'service\'       => \'\','.PHP_EOL
+                .'        \'service_id\'    => \'\','.PHP_EOL
+                .'        \'service_token\' => \'\','.PHP_EOL
+                .'        \'image_url\'     => $faker->imageUrl(),'.PHP_EOL;
+        EOF;
+        $data .= '    ];'.PHP_EOL.'});'.PHP_EOL.PHP_EOL;
+
+        $this->replaceFile([
+            $key => $data,
+        ], $factoryPath);
+
+        return true;
+    }
+
     /// SERVICE
 
     protected function generateService($name)
@@ -72,7 +150,7 @@ class AuthGenerator extends Generator
     {
         $modelName = $this->getModelName($name);
 
-        $className = $this->getServiceClass($modelName);
+        $className = $this->getServiceInterfaceClass($modelName);
         $classPath = $this->convertClassToPath($className);
 
         $stubFilePath = $this->getStubPath('/service-auth/auth/service_interface.stub');
@@ -147,7 +225,7 @@ class AuthGenerator extends Generator
     {
         $modelName = $this->getModelName($name);
 
-        return '\\App\\Repositories\\'.$modelName.'ServiceAuthenticationRepository';
+        return '\\App\\Repositories\\'.$modelName.'ServiceAuthenticationRepositoryInterface';
     }
 
     protected function generateRepositoryInterface($name)
