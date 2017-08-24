@@ -173,7 +173,7 @@ class AuthGenerator extends Generator
         $modelName   = $this->getModelName($name);
 
         $key  = '/* NEW BINDING */';
-        $bind = '$this->app->singleton('.PHP_EOL.'            \\App\\Services\\'.$modelName.'ServiceAuthenticationServiceInterface::class,'.PHP_EOL.'            \\App\\Services\\Production\\'.$name.'ServiceAuthenticationService::class'.PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        ';
+        $bind = '$this->app->singleton('.PHP_EOL.'            \\App\\Services\\'.$modelName.'ServiceAuthenticationServiceInterface::class,'.PHP_EOL.'            \\App\\Services\\Production\\'.$modelName.'ServiceAuthenticationService::class'.PHP_EOL.'        );'.PHP_EOL.PHP_EOL.'        ';
         $this->replaceFile([
             $key => $bind,
         ], $bindingPath);

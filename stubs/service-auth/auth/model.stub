@@ -13,7 +13,7 @@ use LaravelRocket\ServiceAuthentication\Models\ServiceAuthenticationBase;
  * @property string $name
  * @property string $email
  * @property string $service
- * @property int $service_id
+ * @property string $service_id
  * @property string $image_url
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
