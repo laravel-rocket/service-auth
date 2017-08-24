@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\%%MODEL%%;
 
-use App\Http\Controllers\ServiceAuthController;
+use LaravelRocket\ServiceAuthentication\Http\Controllers\ServiceAuthController;
 use App\Services\%%MODEL%%ServiceInterface;
 use App\Services\%%MODEL%%ServiceAuthenticationServiceInterface;
 use Laravel\Socialite\Contracts\Factory as Socialite;

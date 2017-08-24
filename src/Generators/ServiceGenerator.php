@@ -10,6 +10,7 @@ class ServiceGenerator extends Generator
         $serviceName = $names[1];
 
         $this->generateController($authName, $serviceName);
+        $this->updateConfig($authName, $serviceName);
     }
 
     protected function generateController($authName, $serviceName)
@@ -62,5 +63,25 @@ class ServiceGenerator extends Generator
         ], $routePath);
 
         return true;
+    }
+
+    protected function updateConfig($authName, $serviceName)
+    {
+        $model   = $this->getModelName($authName);
+        $service = $this->getServiceName($serviceName);
+
+        $configPath = base_path('/config/services.php');
+
+        $key    = '/* NEW SERVICE INFO */';
+        $config = '\'' . $serviceName . '\' => [' . PHP_EOL
+        . '        \'client_id\'       => \'\',' . PHP_EOL
+        . '        \'client_secret\'   => \'\',' . PHP_EOL
+        . '        \'redirect_action\' => \''.$model.'\\'.$service.'ServiceAuthController@callback\',' . PHP_EOL
+        . '    ],' . PHP_EOL . PHP_EOL.  '    ';
+
+        $this->replaceFile([
+            $key => $config,
+        ], $configPath);
+
     }
 }

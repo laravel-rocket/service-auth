@@ -161,8 +161,8 @@ class AuthGenerator extends Generator
 
     protected function generateServiceUnitTest($name)
     {
-        $modelName    = $this->getModelName($name);
-        $classPath    = base_path('/tests/Services/'.$modelName.'ServiceAuthenticationServiceTest.php');
+        $modelName    = $this->getModelName($name) . 'ServiceAuthenticationService';
+        $classPath    = base_path('/tests/Services/'.$modelName.'Test.php');
         $stubFilePath = $this->getStubPath('/service/service_unittest.stub');
 
         return $this->generateFile($modelName, $classPath, $stubFilePath);
@@ -242,9 +242,9 @@ class AuthGenerator extends Generator
 
     protected function generateRepositoryUnitTest($name)
     {
-        $modelName = $this->getModelName($name);
+        $modelName = $this->getModelName($name) . 'ServiceAuthentication';
 
-        $classPath    = base_path('/tests/Repositories/'.$modelName.'ServiceAuthenticationRepositoryTest.php');
+        $classPath    = base_path('/tests/Repositories/'.$modelName.'RepositoryTest.php');
         $stubFilePath = $this->getStubPath('/repository/repository_unittest.stub');
 
         return $this->generateFile($modelName, $classPath, $stubFilePath);
