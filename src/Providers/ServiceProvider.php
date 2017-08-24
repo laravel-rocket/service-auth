@@ -19,6 +19,8 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton('command.rocket.make.service-auth-service', function ($app) {
             return new ServiceGeneratorCommand($app['config'], $app['files'], $app['view']);
         });
+
+        $this->commands('command.rocket.make.service-auth-base', 'command.rocket.make.service-auth-service');
     }
 
     /**
