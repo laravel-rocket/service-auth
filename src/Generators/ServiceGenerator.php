@@ -1,8 +1,6 @@
 <?php
 namespace LaravelRocket\ServiceAuthentication\Generators;
 
-use LaravelRocket\Generator\Generators\Generator;
-
 class ServiceGenerator extends Generator
 {
     public function generate($name, $overwrite = false, $baseDirectory = null)

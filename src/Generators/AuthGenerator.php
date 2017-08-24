@@ -1,10 +1,6 @@
 <?php
 namespace LaravelRocket\ServiceAuthentication\Generators;
 
-use LaravelRocket\Generator\Generators\Generator;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
-use function ICanBoogie\singularize;
-
 class AuthGenerator extends Generator
 {
     public function generate($name, $overwrite = false, $baseDirectory = null)
