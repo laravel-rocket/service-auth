@@ -1,8 +1,13 @@
-# Laravel Rocket Foundation Package
+# Laravel Rocket Service Authentication Package
 
 ## About
 
-Laravel Rocket is a yet another boilerplate based on Laravel.
+:rocket: Laravel Rocket is a yet another boilerplate based on Laravel.
+
+
+## Usage
+
+It provides 2 commands for service authentications.
 
 ## License
    
