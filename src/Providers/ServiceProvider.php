@@ -12,25 +12,13 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../database/migrations' => database_path('migrations'),
-            ], 'rocket-service-authentication-migrations');
-        }
-
-        $this->app->singleton('command.rocket.make.auth.base', function ($app) {
+        $this->app->singleton('command.rocket.make.service-auth-base', function ($app) {
             return new AuthGeneratorCommand($app['config'], $app['files'], $app['view']);
         });
 
-        $this->app->singleton('command.rocket.make.auth.service', function ($app) {
+        $this->app->singleton('command.rocket.make.service-auth-service', function ($app) {
             return new ServiceGeneratorCommand($app['config'], $app['files'], $app['view']);
         });
-
-        /* Services */
-        $this->app->singleton(
-            \LaravelRocket\ServiceAuthentication\Services\ServiceAuthenticationServiceInterface::class,
-            \LaravelRocket\ServiceAuthentication\Services\Production\ServiceAuthenticationService::class
-        );
     }
 
     /**
