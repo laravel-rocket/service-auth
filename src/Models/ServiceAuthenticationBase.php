@@ -21,7 +21,6 @@ class ServiceAuthenticationBase extends Base
         'service',
         'service_id',
         'image_url',
-        'service_token',
     ];
 
     /**

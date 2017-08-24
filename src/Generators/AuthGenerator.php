@@ -122,7 +122,6 @@ class AuthGenerator extends Generator
                 .'        \'email\'         => $faker->email,'.PHP_EOL
                 .'        \'service\'       => \'\','.PHP_EOL
                 .'        \'service_id\'    => \'\','.PHP_EOL
-                .'        \'service_token\' => \'\','.PHP_EOL
                 .'        \'image_url\'     => $faker->imageUrl(),'.PHP_EOL
                 .'    ];'.PHP_EOL.'});'.PHP_EOL.PHP_EOL;
 
@@ -205,8 +204,9 @@ class AuthGenerator extends Generator
 
     // REPOSITORIES
 
-    protected function generateRepository($modelName)
+    protected function generateRepository($name)
     {
+        $modelName = $this->getModelName($name);
         $className = $this->getRepositoryClass($modelName);
         $classPath = $this->convertClassToPath($className);
 

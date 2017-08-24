@@ -15,7 +15,6 @@ use LaravelRocket\ServiceAuthentication\Models\ServiceAuthenticationBase;
  * @property string $service
  * @property int $service_id
  * @property string $image_url
- * @property string $service_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\%%MODEL%% $user
@@ -51,7 +50,6 @@ class %%MODEL%%ServiceAuthentication extends ServiceAuthenticationBase
         'email',
         'service',
         'service_id',
-        'service_token',
         'image_url',
     ];
 
