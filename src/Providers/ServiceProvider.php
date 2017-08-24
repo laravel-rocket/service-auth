@@ -18,11 +18,11 @@ class ServiceProvider extends BaseServiceProvider
             ], 'rocket-service-authentication-migrations');
         }
 
-        $this->app->singleton('command.rocket.make.auth', function ($app) {
+        $this->app->singleton('command.rocket.make.auth.base', function ($app) {
             return new AuthGeneratorCommand($app['config'], $app['files'], $app['view']);
         });
 
-        $this->app->singleton('command.rocket.make.service', function ($app) {
+        $this->app->singleton('command.rocket.make.auth.service', function ($app) {
             return new ServiceGeneratorCommand($app['config'], $app['files'], $app['view']);
         });
 
