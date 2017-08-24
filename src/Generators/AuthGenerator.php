@@ -67,7 +67,7 @@ class AuthGenerator extends Generator
     protected function generateModel($name)
     {
         $modelName = $this->getModelName($name);
-        $className = $this->getModelClass($modelName);
+        $className = $this->getModelClass($modelName . 'ServiceAuthentication');
         $classPath = $this->convertClassToPath($className);
 
         $stubFilePath = $this->getStubPath('/service-auth/auth/model.stub');
@@ -80,7 +80,7 @@ class AuthGenerator extends Generator
     {
         $modelName = $this->getModelName($name);
 
-        $className    = '\\App\\Presenters\\'.$modelName.'Presenter';
+        $className    = '\\App\\Presenters\\'.$modelName.'ServiceAuthenticationPresenter';
         $classPath    = $this->convertClassToPath($className);
         $stubFilePath = $this->getStubPath('/model/presenter.stub');
 
@@ -90,9 +90,11 @@ class AuthGenerator extends Generator
         ]);
     }
 
-    protected function generateModelUnitTest($modelName)
+    protected function generateModelUnitTest($name)
     {
-        $classPath    = base_path('/tests/Models/'.$modelName.'Test.php');
+        $modelName = $this->getModelName($name);
+
+        $classPath    = base_path('/tests/Models/'.$modelName.'ServiceAuthenticationTest.php');
         $stubFilePath = $this->getStubPath('/model/model_unittest.stub');
 
         return $this->generateFile($modelName, $classPath, $stubFilePath);
@@ -113,7 +115,7 @@ class AuthGenerator extends Generator
         $factoryPath = base_path('/database/factories/ModelFactory.php');
         $key         = '/* NEW MODEL FACTORY */';
 
-        $data = '$factory->define('.$className.'::class, function (Faker\Generator $faker) {'.PHP_EOL
+        $data = '$factory->define('.$className.'ServiceAuthentication::class, function (Faker\Generator $faker) {'.PHP_EOL
                 .'    return ['.PHP_EOL
                 .'        \'user_id\'       => 0,'.PHP_EOL
                 .'        \'name\'          => $faker->name,'.PHP_EOL
@@ -121,9 +123,8 @@ class AuthGenerator extends Generator
                 .'        \'service\'       => \'\','.PHP_EOL
                 .'        \'service_id\'    => \'\','.PHP_EOL
                 .'        \'service_token\' => \'\','.PHP_EOL
-                .'        \'image_url\'     => $faker->imageUrl(),'.PHP_EOL;
-        EOF;
-        $data .= '    ];'.PHP_EOL.'});'.PHP_EOL.PHP_EOL;
+                .'        \'image_url\'     => $faker->imageUrl(),'.PHP_EOL
+                .'    ];'.PHP_EOL.'});'.PHP_EOL.PHP_EOL;
 
         $this->replaceFile([
             $key => $data,
