@@ -1,5 +1,5 @@
 <?php
-namespace LaravelRocket\ServiceAuthentication;
+namespace LaravelRocket\ServiceAuthentication\Models;
 
 use LaravelRocket\Foundation\Models\Base;
 

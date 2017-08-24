@@ -73,15 +73,14 @@ class ServiceGenerator extends Generator
         $configPath = base_path('/config/services.php');
 
         $key    = '/* NEW SERVICE INFO */';
-        $config = '\'' . $serviceName . '\' => [' . PHP_EOL
-        . '        \'client_id\'       => \'\',' . PHP_EOL
-        . '        \'client_secret\'   => \'\',' . PHP_EOL
-        . '        \'redirect_action\' => \''.$model.'\\'.$service.'ServiceAuthController@callback\',' . PHP_EOL
-        . '    ],' . PHP_EOL . PHP_EOL.  '    ';
+        $config = '\''.$serviceName.'\' => ['.PHP_EOL
+        .'        \'client_id\'       => \'\','.PHP_EOL
+        .'        \'client_secret\'   => \'\','.PHP_EOL
+        .'        \'redirect_action\' => \''.$model.'\\'.$service.'ServiceAuthController@callback\','.PHP_EOL
+        .'    ],'.PHP_EOL.PHP_EOL.'    ';
 
         $this->replaceFile([
             $key => $config,
         ], $configPath);
-
     }
 }

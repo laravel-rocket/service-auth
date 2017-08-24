@@ -1,12 +1,12 @@
 <?php
 namespace App\Models;
 
-use LaravelRocket\ServiceAuthentication\ServiceAuthenticationBase;
+use LaravelRocket\ServiceAuthentication\Models\ServiceAuthenticationBase;
 
 /**
  * App\Models\%%MODEL%%ServiceAuthentication.
  *
- * @method \App\Presenters\%%MODEL%%Presenter present()
+ * @method \App\Presenters\%%MODEL%%ServiceAuthenticationPresenter present()
  *
  * @property int $id
  * @property int $user_id

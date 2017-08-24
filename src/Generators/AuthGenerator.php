@@ -67,7 +67,7 @@ class AuthGenerator extends Generator
     protected function generateModel($name)
     {
         $modelName = $this->getModelName($name);
-        $className = $this->getModelClass($modelName . 'ServiceAuthentication');
+        $className = $this->getModelClass($modelName.'ServiceAuthentication');
         $classPath = $this->convertClassToPath($className);
 
         $stubFilePath = $this->getStubPath('/service-auth/auth/model.stub');
@@ -78,9 +78,9 @@ class AuthGenerator extends Generator
 
     protected function generatePresenter($name)
     {
-        $modelName = $this->getModelName($name);
+        $modelName = $this->getModelName($name).'ServiceAuthentication';
 
-        $className    = '\\App\\Presenters\\'.$modelName.'ServiceAuthenticationPresenter';
+        $className    = '\\App\\Presenters\\'.$modelName.'Presenter';
         $classPath    = $this->convertClassToPath($className);
         $stubFilePath = $this->getStubPath('/model/presenter.stub');
 
@@ -161,7 +161,7 @@ class AuthGenerator extends Generator
 
     protected function generateServiceUnitTest($name)
     {
-        $modelName    = $this->getModelName($name) . 'ServiceAuthenticationService';
+        $modelName    = $this->getModelName($name).'ServiceAuthentication';
         $classPath    = base_path('/tests/Services/'.$modelName.'Test.php');
         $stubFilePath = $this->getStubPath('/service/service_unittest.stub');
 
@@ -242,7 +242,7 @@ class AuthGenerator extends Generator
 
     protected function generateRepositoryUnitTest($name)
     {
-        $modelName = $this->getModelName($name) . 'ServiceAuthentication';
+        $modelName = $this->getModelName($name).'ServiceAuthentication';
 
         $classPath    = base_path('/tests/Repositories/'.$modelName.'RepositoryTest.php');
         $stubFilePath = $this->getStubPath('/repository/repository_unittest.stub');
