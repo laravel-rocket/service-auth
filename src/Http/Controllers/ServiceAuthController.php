@@ -50,7 +50,7 @@ class ServiceAuthController extends Controller
 
     public function callback()
     {
-        config("services.$this->driver.redirect", action(config("services.$this->driver.redirect_action")));
+        config()->set("services.$this->driver.redirect", action(config("services.$this->driver.redirect_action")));
 
         try {
             $serviceUser = $this->socialite->driver($this->driver)->user();
