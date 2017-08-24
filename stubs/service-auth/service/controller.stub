@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers\%%MODEL%%;
+
+use App\Http\Controllers\ServiceAuthController;
+use App\Services\%%MODEL%%ServiceInterface;
+use App\Services\%%MODEL%%ServiceAuthenticationServiceInterface;
+use Laravel\Socialite\Contracts\Factory as Socialite;
+
+class %%SERVICE%%ServiceAuthController extends ServiceAuthController
+{
+    protected $driver = '%%service%%';
+
+    protected $redirectAction = '%%MODEL%%\IndexController@index';
+
+    protected $errorRedirectAction = '%%MODEL%%\AuthController@getSignUp';
+
+    public function __construct(
+        %%MODEL%%ServiceInterface $authenticatableService,
+        %%MODEL%%ServiceAuthenticationServiceInterface $serviceAuthenticationService,
+        Socialite $socialite
+    ) {
+        $this->authenticatableService = $authenticatableService;
+        $this->serviceAuthenticationService = $serviceAuthenticationService;
+        $this->socialite = $socialite;
+    }
+}
