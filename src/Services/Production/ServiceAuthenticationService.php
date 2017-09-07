@@ -57,16 +57,10 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
 
     public function getUserInfoFromToken($service, $token)
     {
-        $provider = null;
-        switch ($service) {
-            case 'facebook':
-                $provider = new FacebookProvider();
-        }
+        $driver      = Socialite::driver($service);
+        $accessToken = $driver->getAccessToken($token);
+        $user        = $driver->userFromToken($accessToken);
 
-        if (!empty($provider)) {
-            return $provider->getUserByToken($token);
-        }
-
-        return;
+        return $user;
     }
 }
