@@ -3,7 +3,6 @@ namespace LaravelRocket\ServiceAuthentication\Services\Production;
 
 use LaravelRocket\Foundation\Repositories\AuthenticatableRepositoryInterface;
 use LaravelRocket\Foundation\Services\Production\BaseService;
-use LaravelRocket\ServiceAuthentication\Libraries\SocialProviders\FacebookProvider;
 use LaravelRocket\ServiceAuthentication\Repositories\ServiceAuthenticationRepositoryInterface;
 use LaravelRocket\ServiceAuthentication\Services\ServiceAuthenticationServiceInterface;
 
@@ -57,10 +56,18 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
 
     public function getUserInfoFromToken($service, $token)
     {
-        $driver      = Socialite::driver($service);
-        $accessToken = $driver->getAccessToken($token);
-        $user        = $driver->userFromToken($accessToken);
+        config()->set("services.$service.redirect", action(config("services.$service.redirect_action")));
+        $driver      = \Socialite::driver($service);
+        $serviceUser = $driver->userFromToken($token);
 
-        return $user;
+        $authUser = $this->getAuthModelId($service, [
+            'service'    => $service,
+            'service_id' => $serviceUser->getId(),
+            'name'       => $serviceUser->getName(),
+            'email'      => $serviceUser->getEmail(),
+            'avatar'     => $serviceUser->getAvatar(),
+        ]);
+
+        return $authUser;
     }
 }
