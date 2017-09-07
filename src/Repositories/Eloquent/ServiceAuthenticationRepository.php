@@ -2,8 +2,8 @@
 namespace LaravelRocket\ServiceAuthentication\Repositories\Eloquent;
 
 use LaravelRocket\Foundation\Repositories\Eloquent\SingleKeyModelRepository;
+use LaravelRocket\ServiceAuthentication\Models\ServiceAuthenticationBase;
 use LaravelRocket\ServiceAuthentication\Repositories\ServiceAuthenticationRepositoryInterface;
-use LaravelRocket\ServiceAuthentication\ServiceAuthenticationBase;
 
 class ServiceAuthenticationRepository extends SingleKeyModelRepository implements ServiceAuthenticationRepositoryInterface
 {

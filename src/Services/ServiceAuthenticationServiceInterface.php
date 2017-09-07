@@ -12,4 +12,12 @@ interface ServiceAuthenticationServiceInterface extends BaseServiceInterface
      * @return int
      */
     public function getAuthModelId($service, $input);
+
+    /**
+     * @param string $service
+     * @param string $token
+     *
+     * @return array
+     */
+    public function getUserInfoFromToken($service, $token);
 }

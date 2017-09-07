@@ -3,6 +3,7 @@ namespace LaravelRocket\ServiceAuthentication\Services\Production;
 
 use LaravelRocket\Foundation\Repositories\AuthenticatableRepositoryInterface;
 use LaravelRocket\Foundation\Services\Production\BaseService;
+use LaravelRocket\ServiceAuthentication\Libraries\SocialProviders\FacebookProvider;
 use LaravelRocket\ServiceAuthentication\Repositories\ServiceAuthenticationRepositoryInterface;
 use LaravelRocket\ServiceAuthentication\Services\ServiceAuthenticationServiceInterface;
 
@@ -52,5 +53,20 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
         $this->serviceAuthenticationRepository->create($input);
 
         return $authUser->id;
+    }
+
+    public function getUserInfoFromToken($service, $token)
+    {
+        $provider = null;
+        switch ($service) {
+            case 'facebook':
+                $provider = new FacebookProvider();
+        }
+
+        if (!empty($provider)) {
+            return $provider->getUserByToken($token);
+        }
+
+        return;
     }
 }
