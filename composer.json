@@ -22,8 +22,8 @@
   "require": {
     "php": ">=7.0",
     "laravel/framework": "5.4.*",
-    "laravel-rocket/foundation": "dev-master",
-    "laravel-rocket/generator": "dev-master",
+    "laravel-rocket/foundation": "1.0.*",
+    "laravel-rocket/generator": "1.0.*",
     "laravel/socialite": "^3.0",
     "facebook/php-sdk-v4": "^5.6"
   },
