@@ -54,7 +54,7 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
         return $authUser->id;
     }
 
-    public function getUserInfoFromToken($service, $token)
+    public function getUserIdFromToken($service, $token)
     {
         config()->set("services.$service.redirect", action(config("services.$service.redirect_action")));
         $driver      = \Socialite::driver($service);
