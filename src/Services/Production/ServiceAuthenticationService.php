@@ -43,6 +43,8 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
         } else {
             if (array_key_exists('avatar', $input)) {
                 $input['image_url'] = $input['avatar'];
+            } else {
+                $input['image_url'] = '';
             }
             $input['password'] = str_random(20);
             $authUser          = $this->authenticatableRepository->create($input);
