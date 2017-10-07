@@ -53,6 +53,7 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
         }
 
         $input[$columnName] = $authUser->id;
+        $input['image_url'] = array_get($input, 'avatar', '');
         $this->serviceAuthenticationRepository->create($input);
 
         return $authUser->id;
