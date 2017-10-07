@@ -2,6 +2,7 @@
 namespace LaravelRocket\ServiceAuthentication\Services\Production;
 
 use LaravelRocket\Foundation\Repositories\AuthenticatableRepositoryInterface;
+use LaravelRocket\Foundation\Services\AuthenticatableServiceInterface;
 use LaravelRocket\Foundation\Services\Production\BaseService;
 use LaravelRocket\ServiceAuthentication\Repositories\ServiceAuthenticationRepositoryInterface;
 use LaravelRocket\ServiceAuthentication\Services\ServiceAuthenticationServiceInterface;
@@ -14,12 +15,17 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
     /** @var AuthenticatableRepositoryInterface $authenticatableRepository */
     protected $authenticatableRepository;
 
+    /** @var AuthenticatableServiceInterface $authenticatableService */
+    protected $authenticatableService;
+
     public function __construct(
         AuthenticatableRepositoryInterface $authenticatableRepository,
-        ServiceAuthenticationRepositoryInterface $serviceAuthenticationRepository
+        ServiceAuthenticationRepositoryInterface $serviceAuthenticationRepository,
+        AuthenticatableServiceInterface $authenticatableService
     ) {
         $this->authenticatableRepository       = $authenticatableRepository;
         $this->serviceAuthenticationRepository = $serviceAuthenticationRepository;
+        $this->authenticatableService          = $authenticatableService;
     }
 
     public function getAuthModelId($service, $input)
@@ -41,13 +47,9 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
                 return $authUser->id;
             }
         } else {
-            if (array_key_exists('avatar', $input)) {
-                $input['image_url'] = $input['avatar'];
-            } else {
-                $input['image_url'] = '';
-            }
+            $imageUrl          = array_get($input, 'avatar');
             $input['password'] = str_random(20);
-            $authUser          = $this->authenticatableRepository->create($input);
+            $authUser          = $this->authenticatableService->createWithImageUrl($input, $imageUrl);
         }
 
         $input[$columnName] = $authUser->id;
