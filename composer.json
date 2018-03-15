@@ -24,8 +24,8 @@
     "fideloper/proxy": "~4.0",
     "laravel/framework": "5.6.*",
     "laravel/tinker": "~1.0",
-    "laravel-rocket/foundation": "2.2.*",
-    "laravel-rocket/generator": "2.2.*",
+    "laravel-rocket/foundation": "^2.2.0",
+    "laravel-rocket/generator": "^2.2.0",
     "laravel/socialite": "^3.0",
     "facebook/graph-sdk": "^5.6"
   },
