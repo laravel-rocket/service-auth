@@ -1,6 +1,8 @@
 <?php
 namespace LaravelRocket\ServiceAuthentication\Services\Production;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use LaravelRocket\Foundation\Repositories\AuthenticatableRepositoryInterface;
 use LaravelRocket\Foundation\Services\AuthenticatableServiceInterface;
 use LaravelRocket\Foundation\Services\Production\BaseService;
@@ -34,26 +36,26 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
 
         $authInfo = $this->serviceAuthenticationRepository->findByServiceAndId(
             $service,
-            array_get($input, 'service_id')
+            Arr::get($input, 'service_id')
         );
         if (!empty($authInfo)) {
             return $authInfo->$columnName;
         }
 
-        $authUser = $this->authenticatableRepository->findByEmail(array_get($input, 'email'));
+        $authUser = $this->authenticatableRepository->findByEmail(Arr::get($input, 'email'));
         if (!empty($authUser)) {
             $authInfo = $this->serviceAuthenticationRepository->findByServiceAndAuthModelId($service, $authUser->id);
             if (!empty($authInfo)) {
                 return $authUser->id;
             }
         } else {
-            $imageUrl          = array_get($input, 'avatar');
-            $input['password'] = str_random(20);
+            $imageUrl          = Arr::get($input, 'avatar');
+            $input['password'] = Str::random(20);
             $authUser          = $this->authenticatableService->createWithImageUrl($input, $imageUrl);
         }
 
         $input[$columnName] = $authUser->id;
-        $input['image_url'] = array_get($input, 'avatar', '');
+        $input['image_url'] = Arr::get($input, 'avatar', '');
         $this->serviceAuthenticationRepository->create($input);
 
         return $authUser->id;
